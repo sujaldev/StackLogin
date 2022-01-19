@@ -29,6 +29,7 @@ def get_config():
         "email": os.environ.get("STACKOVERFLOW_EMAIL"),
         "password": os.environ.get("STACKOVERFLOW_PASSWORD")
     }
+    print(config)
     return config
 
 
