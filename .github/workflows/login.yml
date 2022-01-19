@@ -27,5 +27,5 @@ jobs:
         run: |
           python3 login.py
         env:
-          STACKOVERFLOW_USERNAME: ${{ secrets.STACKOVERFLOW_USERNAME }}
+          STACKOVERFLOW_EMAIL: ${{ secrets.STACKOVERFLOW_USERNAME }}
           STACKOVERFLOW_PASSWORD: ${{ secrets.STACKOVERFLOW_PASSWORD }}
