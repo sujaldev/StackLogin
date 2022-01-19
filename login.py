@@ -1,4 +1,4 @@
-import json
+import os
 import requests
 from bs4 import BeautifulSoup
 
@@ -24,6 +24,14 @@ def extract_userdata(html):
         return user_data_element.attrs["href"]
 
 
+def get_config():
+    config = {
+        "email": os.environ.get("STACKOVERFLOW_EMAIL"),
+        "password": os.environ.get("STACKOVERFLOW_PASSWORD")
+    }
+    return config
+
+
 class StackOverflow:
     LOGIN_URL = "https://www.stackoverflow.com/users/login"
     POST_DATA_TEMPLATE = {
@@ -34,11 +42,7 @@ class StackOverflow:
         self.config_file = config_file
 
         self.session = requests.Session()
-        self.post_data = self.POST_DATA_TEMPLATE | self.get_config()
-
-    def get_config(self):
-        with open(self.config_file) as config:
-            return json.load(config)
+        self.post_data = self.POST_DATA_TEMPLATE | get_config()
 
     def make_login_request(self):
         response = self.session.post(self.LOGIN_URL, data=self.post_data)
@@ -61,3 +65,4 @@ class StackOverflow:
 if __name__ == '__main__':
     stackoverflow = StackOverflow()
     stackoverflow.login()
+    print("Successfully logged in!")
